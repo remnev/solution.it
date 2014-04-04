@@ -22,7 +22,7 @@ Company.add({
     motto: { type: Types.Text },
     description: { type: Types.Textarea },
     address: {
-        postCode: { type: Types.Number },
+        postCode: { type: Types.Text },
         city: { type: Types.Text },
         street: { type: Types.Text },
         description: { type: Types.Text }
