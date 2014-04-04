@@ -22,20 +22,27 @@ var _ = require('underscore'),
 */
 
 exports.initLocals = function(req, res, next) {
-    
-    var locals = res.locals;
-    
+    var locals = res.locals,
+        Company = keystone.list('Company');
+
     locals.navLinks = [
         { label: 'Компания',  key: 'company',         href: '/' },
         { label: 'Услуги',    key: 'services',        href: '/services' },
         // { label: 'Blog',        key: 'blog',        href: '/blog' },
         // { label: 'Contact',        key: 'contact',        href: '/contact' }
     ];
-    
+
     locals.user = req.user;
-    
-    next();
-    
+
+    Company.model.findOne()
+        .where('_id', '533edf649b944bf876a1a90e')
+        .exec(function(err, company) {
+            if (err) throw err;
+
+            locals.company = company;
+            next();
+        });
+
 };
 
 
