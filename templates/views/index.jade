@@ -3,3 +3,23 @@ extends ../layouts/default
 block content
     .container
         h1= company.motto
+        div#carousel-example-generic.carousel.slide(data-ride="carousel")
+            //- Indicators
+            ol.carousel-indicators
+                each project, i in portfolioProjects
+                    li(data-target="#carousel-example-generic", data-slide-to=i, class= i==0 ? "active" : "")
+
+            //- Wrapper for slides
+            div.carousel-inner
+                each project, i in portfolioProjects
+                    div.item(class= i==0 ? "active" : "")
+                        img(src=project.image.url, alt=project.title)
+                        div.carousel-shadow
+                        div.carousel-caption
+                            h3=project.title
+
+            //- Controls
+            a.left.carousel-control(href="#carousel-example-generic", data-slide="prev")
+                span.glyphicon.glyphicon-chevron-left
+            a.right.carousel-control(href="#carousel-example-generic", data-slide="next")
+                span.glyphicon.glyphicon-chevron-right
