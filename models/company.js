@@ -20,7 +20,7 @@ Company.add({
         time: { type: Types.Text }
     },
     motto: { type: Types.Text },
-    description: { type: Types.Textarea },
+    aboutCompany: { type: Types.Markdown },
     address: {
         postCode: { type: Types.Text },
         city: { type: Types.Text },
