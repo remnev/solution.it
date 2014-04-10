@@ -3,19 +3,19 @@ extends ../layouts/default
 block content
     .container
         h1= company.motto
-        div#carousel-example-generic.carousel.slide(data-ride="carousel")
+        #carousel-example-generic.carousel.slide(data-ride="carousel")
             //- Indicators
             ol.carousel-indicators
                 each project, i in portfolioProjects
                     li(data-target="#carousel-example-generic", data-slide-to=i, class= i==0 ? "active" : "")
 
             //- Wrapper for slides
-            div.carousel-inner
+            .carousel-inner
                 each project, i in portfolioProjects
-                    div.item(class= i==0 ? "active" : "")
+                    .item(class= i==0 ? "active" : "")
                         img(src=project.image.url, alt=project.title)
-                        div.carousel-shadow
-                        div.carousel-caption
+                        .carousel-shadow
+                        .carousel-caption
                             h3=project.title
 
             //- Controls
@@ -24,4 +24,28 @@ block content
             a.right.carousel-control(href="#carousel-example-generic", data-slide="next")
                 span.glyphicon.glyphicon-chevron-right
 
-        div.company-description!= company.aboutCompany.html
+        .company-description!= company.aboutCompany.html
+
+        .row.contact-form__wrapper: .col-sm-8.col-md-8
+            .contact-form__message Или оставьте сообщение через форму, мы свяжемся с вами сами:
+            .contact-form__status
+            form(method='post').contact-form
+                input(type='hidden', name='action', value='contact')
+                .form-group
+                    label.control-label Ваше имя
+                    input(type='text', name='name.full', required).form-control
+                .form-group
+                    label.control-label Ваш email
+                    input(type='email', name='email', required).form-control
+                .form-group
+                    label Номер телефона
+                    input(type='text', name='phone', placeholder='(необязательно)').form-control
+                .form-group
+                    label.control-label Сообщение
+                    textarea(name='message', rows=4, required).form-control
+                .form-actions
+                    button(type='submit').btn.btn-primary Отправить
+
+        .company-address= 'Наш адрес: ' + company.address.postCode + ', ' + company.address.city + ', ' + company.address.street
+            .company-address__description= company.address.description
+            .company-welcomeText= company.welcomeText
