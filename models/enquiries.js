@@ -1,55 +1,53 @@
 var keystone = require('keystone'),
-	Types = keystone.Field.Types;
+    Types = keystone.Field.Types;
 
 var Enquiry = new keystone.List('Enquiry', {
-	nocreate: true,
-	noedit: true
+    nocreate: true,
+    noedit: true
 });
 
 Enquiry.add({
-	name: { type: Types.Name, required: true },
-	email: { type: Types.Email, required: true },
-	phone: { type: String },
-	enquiryType: { type: Types.Select, options: [
-		{ value: 'message', label: "Just leaving a message" },
-		{ value: 'question', label: "I've got a question" },
-		{ value: 'other', label: "Something else..." }
-	] },
-	message: { type: Types.Markdown, required: true },
-	createdAt: { type: Date, default: Date.now }
+    name: { type: Types.Name, required: true },
+    email: { type: Types.Email, required: true },
+    phone: { type: String },
+    enquiryType: { type: Types.Select, options: [
+        { value: 'message', label: "Just leaving a message" },
+        { value: 'question', label: "I've got a question" },
+        { value: 'other', label: "Something else..." }
+    ] },
+    message: { type: Types.Markdown, required: true },
+    createdAt: { type: Date, default: Date.now }
 });
 
 Enquiry.schema.pre('save', function(next) {
-	this.wasNew = this.isNew;
-	next();
+    this.wasNew = this.isNew;
+    next();
 })
 
 Enquiry.schema.post('save', function() {
-	if (this.wasNew) {
-		this.sendNotificationEmail();
-	}
+    if (this.wasNew) {
+        this.sendNotificationEmail();
+    }
 });
 
 Enquiry.schema.methods.sendNotificationEmail = function(callback) {
-	
-	var enqiury = this;
-	
-	keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
-		
-		if (err) return callback(err);
-		
-		new keystone.Email('enquiry-notification').send({
-			to: admins,
-			from: {
-				name: 'solutionit.ru',
-				email: 'contact@solutionitru.com'
-			},
-			subject: 'New Enquiry for solutionit.ru',
-			enquiry: enqiury
-		}, callback);
-		
-	});
-	
+    var enqiury = this;
+
+    keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
+
+        if (err) return callback(err);
+
+        new keystone.Email('enquiry-notification').send({
+            to: admins,
+            from: {
+                name: 'solutionit.ru',
+                email: 'contact@solutionit.ru'
+            },
+            subject: 'Новое сообщение solutionit.ru',
+            enquiry: enqiury
+        }, callback);
+
+    });
 }
 
 Enquiry.defaultSort = '-createdAt';
