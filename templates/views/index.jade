@@ -49,3 +49,9 @@ block content
         .company-address= 'Наш адрес: ' + company.address.postCode + ', ' + company.address.city + ', ' + company.address.street
             .company-address__description= company.address.description
             .company-welcomeText= company.welcomeText
+
+block js
+    script(src='/js/site.js')
+
+block css
+    link(href="/styles/index.min.css", rel="stylesheet")
