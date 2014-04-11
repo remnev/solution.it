@@ -3,6 +3,7 @@ var keystone = require('keystone'),
 
 exports = module.exports = function(done) {
     var portfolioProject = new PortfolioProject.model({
+        name: 'Газпром нефть',
         title: 'ООО Газпром нефть — внедрение ИС учета сырья'
     });
 
