@@ -35,7 +35,7 @@ exports.initLocals = function(req, res, next) {
     locals.user = req.user;
 
     Company.model.findOne()
-        .where('_id', '533edf649b944bf876a1a90e')
+        .where('name', 'Solution IT')
         .exec(function(err, company) {
             if (err) throw err;
 
