@@ -1,0 +1,16 @@
+extends ../layouts/default
+
+block content
+    .container
+        .layout__left
+            ul.service-categories
+                each category, i in categories
+                    li.service-categories__category(class= category.slug==serviceCategory ? "active" : "")
+                        a(href=category.slug)= category.name
+        .layout__right
+
+//- block js
+//-     script(src='/js/site.js')
+
+block css
+    link(href="/styles/services.min.css", rel="stylesheet")
