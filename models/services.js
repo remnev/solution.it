@@ -5,6 +5,7 @@ var Service = new keystone.List('Service');
 
 Service.add({
     name: { type: String, index: true, required: true },
+    slug: { type: String, required: true },
     state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
     image: { type: Types.CloudinaryImage },
     content: {
