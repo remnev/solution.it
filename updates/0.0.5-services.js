@@ -2,8 +2,8 @@ var keystone = require('keystone'),
     async = require('async'),
     Service = keystone.list('Service'),
     services = [
-        { name: 'СКС/ЛВС' },
-        { name: 'Вычислительная инфраструктура' }
+        { name: 'СКС/ЛВС', slug: 'sks-lvs' },
+        { name: 'Вычислительная инфраструктура', slug: 'vich-infr' }
     ];
 
 function createService(service, done) {
