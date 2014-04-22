@@ -8,6 +8,23 @@ block content
                     li.service-categories__category(class= category.slug==serviceCategory ? "active" : "")
                         a(href=category.slug)= category.name
         .layout__right
+            if services.length > 1
+                //- Оглавление
+                ul.services-TOC
+                    each service, i in services
+                        li.services-TOC__item
+                            a(href='#'+service.slug)= service.name
+
+                //- Список услуг
+                .services
+                    each service, i in services
+                        .services__service
+                            .services__title(id=service.slug)= service.name
+                            img.servicess__img(src=service.image.url, alt=service.name)
+                            .services__brief!= service.content.brief
+                            a.services__more(href=service.slug) Подробнее...
+            else
+                //- Единственная услуга полностью
 
 //- block js
 //-     script(src='/js/site.js')
