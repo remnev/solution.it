@@ -7,7 +7,8 @@ var ServiceCategory = new keystone.List('ServiceCategory', {
 
 ServiceCategory.add({
     name: { type: String, required: true },
-    slug: { type: String, required: true }
+    slug: { type: String, required: true },
+    priority: { type: Number }
 });
 
 ServiceCategory.relationship({ ref: 'Service', path: 'categories' });
