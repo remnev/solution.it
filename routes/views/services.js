@@ -25,6 +25,7 @@ exports = module.exports = function(req, res) {
         keystone.list('ServiceCategory').model
             .find()
             .select('name slug')
+            .sort({ priority: 1 })
             .exec(function(err, categories) {
                 if (err) cb(err);
 
@@ -36,12 +37,19 @@ exports = module.exports = function(req, res) {
         keystone.list('Service').model
             .find()
             .where({ state: 'published' })
-            .select('name image content categories')
+            .select('name image content categories slug')
             .populate('serviceCategory categories')
             .exec(function(err, services) {
                 if (err) cb(err);
 
-                cb(null, services);
+                var res = [];
+                services.forEach(function(service) {
+                    if (service.categories[0].slug == locals.serviceCategory) {
+                        res.push(service);
+                    }
+                });
+
+                cb(null, res);
             });
     }
 
