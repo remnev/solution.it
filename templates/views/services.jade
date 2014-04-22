@@ -23,8 +23,15 @@ block content
                             img.servicess__img(src=service.image.url, alt=service.name)
                             .services__brief!= service.content.brief
                             a.services__more(href=service.slug) Подробнее...
-            else
+            else if services.length == 1
                 //- Единственная услуга полностью
+                .services
+                    .services__service
+                        .services__title(id=services[0].slug)= services[0].name
+                        img.servicess__img(src=services[0].image.url, alt=services[0].name)
+                        .services__brief!= services[0].content.extended
+            else
+                .message В выбранном разделе пока не добавлены услуги
 
 //- block js
 //-     script(src='/js/site.js')
