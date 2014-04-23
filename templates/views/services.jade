@@ -6,7 +6,7 @@ block content
             ul.service-categories
                 each category, i in categories
                     li.service-categories__category(class= category.slug==serviceCategory ? "active" : "")
-                        a(href=category.slug)= category.name
+                        a(href='../'+category.slug+'/')= category.name
         .layout__right
             if services.length > 1
                 //- Оглавление
@@ -22,7 +22,7 @@ block content
                             .services__title(id=service.slug)= service.name
                             img.servicess__img(src=service.image.url, alt=service.name)
                             .services__brief!= service.content.brief
-                            a.services__more(href=service.slug) Подробнее...
+                            a.services__more(href=service.slug+'/') Подробнее...
             else if services.length == 1
                 //- Единственная услуга полностью
                 .services
