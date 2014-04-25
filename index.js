@@ -91,9 +91,11 @@ keystone.set('email tests', require('./routes/emails'));
 
 keystone.set('nav', {
 	// 'posts': ['posts', 'post-categories'],
-	// 'enquiries': 'enquiries',
     'Пользователи': 'users',
-    'Компания': 'companies'
+    'Компания': 'companies',
+    'Слайды': 'portfolio-projects',
+    'Услуги': ['services', 'service-categories'],
+    'Сообщения': 'enquiries'
 });
 
 // Start Keystone to connect to your database and initialise the web server
