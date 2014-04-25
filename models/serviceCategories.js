@@ -8,6 +8,7 @@ var ServiceCategory = new keystone.List('ServiceCategory', {
 ServiceCategory.add({
     name: { type: String, required: true },
     slug: { type: String, required: true },
+    showOnIndexPage: { type: Types.Boolean },
     priority: { type: Number }
 });
 

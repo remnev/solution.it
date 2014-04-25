@@ -13,6 +13,7 @@ Service.add({
         extended: { type: Types.Html, wysiwyg: true, height: 300 }
     },
     categories: { type: Types.Relationship, ref: 'ServiceCategory', many: true },
+    showOnIndexPage: { type: Types.Boolean },
     date: { type: Types.Date, index: true }
 });
 

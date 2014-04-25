@@ -24,6 +24,17 @@ block content
             a.right.carousel-control(href="#carousel-example-generic", data-slide="next")
                 span.glyphicon.glyphicon-chevron-right
 
+        .company-services
+            ul.categories
+                each category in categories
+                    li.category
+                        a.title(href= 'services/'+category.slug+'/')= category.name
+                        ul
+                            each service in services
+                                if service.categories[0].slug == category.slug
+                                    li.service
+                                        a(href= 'services/'+category.slug+'/'+service.slug+'/')= service.name
+
         .company-description!= company.aboutCompany.html
 
         .row.contact-form__wrapper: .col-sm-8.col-md-8
