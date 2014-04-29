@@ -4,17 +4,60 @@ var keystone = require('keystone'),
 var Service = new keystone.List('Service');
 
 Service.add({
-    name: { type: String, index: true, required: true },
-    slug: { type: String },
-    state: { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-    image: { type: Types.CloudinaryImage },
-    content: {
-        brief: { type: Types.Html, wysiwyg: true, height: 100 },
-        extended: { type: Types.Html, wysiwyg: true, height: 300 }
+    name: {
+        type: String,
+        index: true,
+        required: true,
+        label: 'Название'
     },
-    categories: { type: Types.Relationship, ref: 'ServiceCategory', many: true },
-    showOnIndexPage: { type: Types.Boolean },
-    date: { type: Types.Date, index: true }
+    slug: {
+        type: String,
+        initial: true,
+        required: true,
+        label: 'Название в URL (service_SLUG)',
+        note: '/services/[category_SLUG]/[service_SLUG]/ Без пробелов!'
+    },
+    state: {
+        type: Types.Select,
+        options: 'draft, published, archived',
+        default: 'draft',
+        index: true,
+        label: 'Состояние'
+    },
+    image: {
+        type: Types.CloudinaryImage,
+        label: 'Картинка'
+    },
+    content: {
+        brief: {
+            type: Types.Html,
+            wysiwyg: true,
+            height: 100,
+            label: 'Спойлер',
+            note: 'Короткий текст. После него следует ссылка Подробнее'
+        },
+        extended: {
+            type: Types.Html,
+            wysiwyg: true,
+            height: 300,
+            label: 'Полное описание'
+        }
+    },
+    categories: {
+        type: Types.Relationship,
+        ref: 'ServiceCategory',
+        many: true,
+        label: 'Категория'
+    },
+    showOnIndexPage: {
+        type: Types.Boolean,
+        label: 'Вывести на главную'
+    },
+    date: {
+        type: Types.Date,
+        index: true,
+        label: 'Дата создания'
+    }
 });
 
 Service.schema.virtual('content.full').get(function() {

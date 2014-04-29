@@ -7,16 +7,32 @@ var Enquiry = new keystone.List('Enquiry', {
 });
 
 Enquiry.add({
-    name: { type: Types.Name, required: true },
+    name: {
+        type: Types.Name,
+        required: true,
+        label: 'Имя'
+    },
     email: { type: Types.Email, required: true },
-    phone: { type: String },
-    enquiryType: { type: Types.Select, options: [
-        { value: 'message', label: "Just leaving a message" },
-        { value: 'question', label: "I've got a question" },
-        { value: 'other', label: "Something else..." }
-    ] },
-    message: { type: Types.Markdown, required: true },
-    createdAt: { type: Date, default: Date.now }
+    phone: { type: String, label: 'Телефон' },
+    enquiryType: {
+        type: Types.Select,
+        label: 'Тип сообщения',
+        options: [
+            { value: 'message', label: "Просто сообщение" },
+            { value: 'question', label: "Вопрос" },
+            { value: 'other', label: "Прочее" }
+        ]
+    },
+    message: {
+        type: Types.Markdown,
+        required: true,
+        label: 'Текст сообщения'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        label: 'Дата отправки'
+    }
 });
 
 Enquiry.schema.pre('save', function(next) {

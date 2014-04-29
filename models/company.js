@@ -9,25 +9,46 @@ var keystone = require('keystone'),
 var Company = new keystone.List('Company');
 
 Company.add({
-    name: { type: Types.Text },
+    name: {
+        type: Types.Text,
+        label: 'Название'
+    },
     email: { type: Types.Email },
     phone: {
-        code: { type: Types.Number },
-        number: { type: Types.Text }
+        code: {
+            type: Types.Number,
+            label: 'Код города'
+        },
+        number: {
+            type: Types.Text,
+            label: 'Номер телефона'
+        }
     },
     workTime: {
-        days: { type: Types.Text },
-        time: { type: Types.Text }
+        days: {
+            type: Types.Text,
+            label: 'Дни работы'
+        },
+        time: {
+            type: Types.Text,
+            label: 'Время работы'
+        }
     },
-    motto: { type: Types.Text },
-    aboutCompany: { type: Types.Markdown },
+    motto: {
+        type: Types.Text,
+        label: 'Слоган компании'
+    },
+    aboutCompany: {
+        type: Types.Markdown,
+        label: 'О компании'
+    },
     address: {
-        postCode: { type: Types.Text },
-        city: { type: Types.Text },
-        street: { type: Types.Text },
-        description: { type: Types.Text }
+        postCode: { type: Types.Text, label: 'Индекс' },
+        city: { type: Types.Text, label: 'Город' },
+        street: { type: Types.Text, label: 'Улица, дом, офис' },
+        description: { type: Types.Text, label: 'Описание как добраться' }
     },
-    welcomeText: { type: Types.Text }
+    welcomeText: { type: Types.Text, label: 'Приветственный текст' }
 });
 
 /**

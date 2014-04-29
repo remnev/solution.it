@@ -1,6 +1,6 @@
 var _ = require('underscore'),
-	keystone = require('keystone'),
-	Types = keystone.Field.Types;
+    keystone = require('keystone'),
+    Types = keystone.Field.Types;
 
 /**
  * Users
@@ -10,16 +10,31 @@ var _ = require('underscore'),
 var User = new keystone.List('User');
 
 User.add({
-	name: { type: Types.Name, required: true, index: true },
-	email: { type: Types.Email, initial: true, required: true, index: true },
-	password: { type: Types.Password, initial: true, required: false }
+    name: {
+        type: Types.Name,
+        required: true,
+        index: true,
+        label: 'Имя Фамилия'
+    },
+    email: {
+        type: Types.Email,
+        initial: true,
+        required: true,
+        index: true
+    },
+    password: {
+        type: Types.Password,
+        initial: true,
+        required: false,
+        label: 'Пароль'
+    }
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can access Keystone' }
+    isAdmin: { type: Boolean, label: 'Имеет доступ в админку' }
 });
 
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
-	return this.isAdmin;
+    return this.isAdmin;
 });
 
 

@@ -6,10 +6,30 @@ var ServiceCategory = new keystone.List('ServiceCategory', {
 });
 
 ServiceCategory.add({
-    name: { type: String, required: true },
-    slug: { type: String },
-    showOnIndexPage: { type: Types.Boolean },
-    priority: { type: Number }
+    name: {
+        type: String,
+        required: true,
+        label: 'Название'
+    },
+    slug: {
+        type: String,
+        initial: true,
+        required: true,
+        label: 'Название в URL (category_SLUG)',
+        note: '/services/[category_SLUG]/ Без пробелов!'
+    },
+    showOnIndexPage: {
+        type: Types.Boolean,
+        label: 'Вывести на главную'
+    },
+    showAsDefaultCategory: {
+        type: Types.Boolean,
+        label: 'По умолчанию (Хотя бы одна категория должна иметь эту галку)',
+    },
+    priority: {
+        type: Number,
+        label: 'Приоритет для сортировки'
+    }
 });
 
 ServiceCategory.relationship({ ref: 'Service', path: 'categories' });
