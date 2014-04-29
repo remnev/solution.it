@@ -7,19 +7,30 @@ exports = module.exports = function(req, res) {
 
     // Set locals
     locals.section = 'services';
-    locals.serviceCategory = req.params.category || 'network-integration';
+    locals.serviceCategory = req.params.category;
 
-    async.parallel({
-        categories: getCategories,
-        services: getServices
-    }, function(err, results) {
-        if (err) throw err;
+    // Если пришли по /services/, то редирект на раздел по умолчанию
+    if (!req.params.category) {
+        getDefaultCategory(function(err, defaultCategory) {
+            locals.serviceCategory = defaultCategory;
+            res.redirect('/services/'+defaultCategory.slug+'/')
+        });
+    } else {
+        async.parallel({
+            categories: getCategories,
+            defaultCategory: getDefaultCategory,
+            services: getServices
+        }, function(err, results) {
+            if (err) throw err;
 
-        locals.categories = results.categories;
-        locals.services = results.services;
-        // Render the view
-        view.render('services');
-    });
+            locals.categories = results.categories;
+            locals.services = results.services;
+
+            // Render the view
+            view.render('services');
+        });
+    }
+
 
     function getCategories(cb) {
         keystone.list('ServiceCategory').model
@@ -30,6 +41,18 @@ exports = module.exports = function(req, res) {
                 if (err) cb(err);
 
                 cb(null, categories);
+            });
+    }
+
+    function getDefaultCategory(cb) {
+        keystone.list('ServiceCategory').model
+            .findOne()
+            .where({ showAsDefaultCategory: true })
+            .select('slug')
+            .exec(function(err, defaultCategory) {
+                if (err) cb(err);
+
+                cb(null, defaultCategory);
             });
     }
 
@@ -44,7 +67,7 @@ exports = module.exports = function(req, res) {
 
                 var res = [];
                 services.forEach(function(service) {
-                    if (service.categories[0].slug == locals.serviceCategory) {
+                    if (service.categories[0] && service.categories[0].slug == locals.serviceCategory) {
                         res.push(service);
                     }
                 });

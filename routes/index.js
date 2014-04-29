@@ -37,11 +37,7 @@ exports = module.exports = function(app) {
     // Views
     app.get('/', routes.views.index);
 
-    app.get('/services/', function(req, res) {
-        res.redirect('/services/network-integration/');
-    });
-
-    app.get('/services/:category', routes.views.services);
+    app.get('/services/:category?', routes.views.services);
 
     app.get('/services/:category/:service', routes.views.service);
 
