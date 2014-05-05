@@ -47,6 +47,8 @@ Service.add({
         type: Types.Relationship,
         ref: 'ServiceCategory',
         many: true,
+        initial: true,
+        required: true,
         label: 'Категория'
     },
     showOnIndexPage: {
