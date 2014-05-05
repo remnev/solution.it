@@ -39,7 +39,9 @@ Company.add({
         label: 'Слоган компании'
     },
     aboutCompany: {
-        type: Types.Markdown,
+        type: Types.Html,
+        wysiwyg: true,
+        height: 300,
         label: 'О компании'
     },
     address: {
