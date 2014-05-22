@@ -59,6 +59,10 @@ Service.add({
         type: Types.Date,
         index: true,
         label: 'Дата создания'
+    },
+    priority: {
+        type: Number,
+        label: 'Приоритет для сортировки'
     }
 });
 

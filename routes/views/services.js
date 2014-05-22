@@ -62,6 +62,7 @@ exports = module.exports = function(req, res) {
             .where({ state: 'published' })
             .select('name image content categories slug')
             .populate('serviceCategory categories')
+            .sort({ priority: 1 })
             .exec(function(err, services) {
                 if (err) cb(err);
 
