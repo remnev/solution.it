@@ -5,6 +5,9 @@ require('dotenv')().load();
 // Require keystone
 var keystone = require('keystone');
 
+var cluster = require('cluster'),
+    numCPUs = require('os').cpus().length;
+
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
@@ -98,6 +101,16 @@ keystone.set('nav', {
     'Сообщения': 'enquiries'
 });
 
-// Start Keystone to connect to your database and initialise the web server
+if (cluster.isMaster) {
+    // Fork workers
+    for (var i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
 
-keystone.start();
+    cluster.on('exit', function(worker, code, signal) {
+        console.log('worker ' + worker.process.pid + ' died');
+    });
+} else {
+    // Start Keystone to connect to your database and initialise the web server
+    keystone.start();
+}
